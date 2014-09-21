@@ -1,0 +1,252 @@
+/* RESET */
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section, summary,
+    time, mark, audio, video{margin:0;padding:0;border:0;outline:0;font-size:100%;font:inherit;vertical-align:baseline;}
+    a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;}
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section{display:block;}
+    body{line-height:1;}
+    ol, ul{list-style:none;}
+    blockquote, q{quotes:none;}
+    blockquote:before, blockquote:after,
+    q:before, q:after{content:'';content:none;}
+    ins{text-decoration:none;}
+    del{text-decoration:line-through;}
+    table{border-collapse:collapse;border-spacing:0;}
+
+    * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* DOCUMENT */
+
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        font: normal 15px 'Helvetica Neue', Helvetica, Arial, serif;
+        color: #6d6d6d;
+        background: #e7e7e7;
+    }
+
+    body {
+        max-width: 800px;
+        height: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 150%;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+/* GLOBALS */
+
+    h1,h2,h3,h4 {
+        margin: 0 0 25px 0;
+        font-weight: bold;
+        line-height: 100%;
+    }
+
+    h1 { font-size: 3em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.8em; }
+    h4 { font-size: 1.5em; }
+
+    a,a:link,a:visited {
+        display: inline;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+    }
+    a:hover,a:active { color: #000; }
+
+    .hide { display: none; }
+    .clear { clear: both; }
+    .right { float: right; }
+    .left { float: left; }
+
+    hr { border: 0; height: 1px; margin: 35px 0;
+        background-image: -webkit-linear-gradient(left, rgba(120,120,120,0), rgba(200,200,200,0.75), rgba(120,120,120,0));
+        background-image:    -moz-linear-gradient(left, rgba(120,120,120,0), rgba(200,200,200,0.75), rgba(120,120,120,0));
+        background-image:     -ms-linear-gradient(left, rgba(120,120,120,0), rgba(200,200,200,0.75), rgba(120,120,120,0));
+        background-image:      -o-linear-gradient(left, rgba(120,120,120,0), rgba(200,200,200,0.75), rgba(120,120,120,0));
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+    
+/* TODO STYLES */
+
+    ::-webkit-input-placeholder {
+        font-style: italic;
+    }
+    
+    .check {
+        border-right: 4px double dimgrey;
+        height: 100%;
+        padding: 15px 10px;
+        width: 50px;
+    }
+    
+    .check i {
+        cursor: pointer;
+        font-size: 1.75em;
+    }
+    
+    .check i.completed {
+        color: #00c420;
+    }
+    
+    .check i.rm {
+        color: #a00000;
+        margin: 5px 0 0 2.5px;
+    }
+
+    .wrapper {
+        box-shadow: 0 -2.5px 20px grey;
+        height: inherit;
+        margin: 0 auto;
+        position: relative;
+        width: 600px;
+        z-index: 2;
+    }
+
+    ul {
+        background-color: #efefef;
+        border-top: 1px solid lightgrey;
+        height: 60px;
+        list-style-type: none;
+        width: 100%;
+    }
+    
+    ul li {
+        float: left;
+        height: 100%;
+        position: relative;
+        width: -webkit-calc(100% - 50px);
+    }
+    
+    li form {
+        height: 90%;
+    }
+    
+    li input {
+        background-color: #efefef;
+        border: none;
+        color: grey;
+        display: block;
+        font-size: 1.25em;
+        font-weight: 300;
+        height: 100%;
+        margin: 3px 19px;
+        outline: none;
+        padding: 0 5px 0 0;
+        width: 400px;
+    }
+    
+    li span {
+        color: grey;
+        display: block;
+        float: left;
+        font-size: 1.25em;
+        font-weight: 300;
+        margin: 19px;
+        width: 400px;
+    }
+    
+    li span.archived {
+        width: 100px;
+        position: absolute;
+        right: 40px;
+        color: #a00000;
+        font-size: 1.5em;
+    }
+    
+    li span.finished {
+        text-decoration: line-through;
+    }
+    
+    li.content input {
+        background-color: white;
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+        padding: 0 0 0 5px;
+        height: 90%;
+    }
+    
+    li .sub {
+        position: absolute;
+        right: 17.5px;
+        top: 17.5px;
+        font-size: 1.5em;
+        color: #00c420;
+        cursor: pointer;
+        -webkit-transistion: all 0.2s;
+    }
+    
+    li .sub:hover {
+        -webkit-transform: scale(1.25);
+        text-shadow: 0 0 1px #000,
+				     0 0 10px rgba(0, 196, 32, 0.8);
+    }
+    
+    li .del {
+        color: #a00000;
+        cursor: pointer;
+        display: none;
+        font-size: 2em;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        -webkit-transition: all 0.2s;
+    }
+    
+    li.content:hover .del {
+        display: inline-block; 
+    }
+    
+    li .del:hover {
+        -webkit-transform: scale(1.25);
+        text-shadow: 0 0 1px #000,
+				     0 0 10px rgba(199, 107, 107, 0.8);
+    }
+    
+    div.footer {
+        background-color: #dbdbdb;
+        box-shadow: 0 2px 10px grey;
+        height: 40px;
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+        width: 75%;
+        z-index: 1;
+    }
+    
+    div.footer span.left {
+        float: left;
+    }
+    
+    div.footer span.sort {
+        position: absolute;
+        left: 140px;
+    }
+    
+    div.footer span.sort span:hover {
+        cursor: pointer;
+    }
+    
+    div.footer span.sort span.active {
+        color: #00c420;
+    }

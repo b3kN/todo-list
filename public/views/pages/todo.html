@@ -1,0 +1,122 @@
+<!-- Wrapper section to contain items & inputs -->
+<div class="wrapper">
+
+    <!-- Top section including input for new items -->
+    <ul>
+        <li class="check">
+        
+        </li>
+        <li>
+            <!-- Input for new items -->
+            <form data-bind="submit: addItem">
+                <input class="main" type="text" placeholder="What needs to be done?" data-bind="value: main" />
+            </form>
+        </li>
+    </ul>
+    <!-- End of top section -->
+    
+    <!-- Section for items -->
+    <section data-bind="visible: list().length">
+        <!-- DIV for showAll -->
+        <div data-bind="foreach: list(), visible: showAll()">
+            <ul>
+                <li class="check">
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }, visible: !archive()"></i>
+                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: archive()"></i>
+                </li>
+                <li class="content" data-bind="visible: !edit()">
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
+                    <span class="archived" data-bind="visible: archive()">Archived</span>
+                    <i class="sub fa fa-share" data-bind="click: $root.restoreItem, visible: archive()"></i>
+                    <i class="del fa fa-times" data-bind="click: $root.delItem, visible: !archive()"></i>
+                </li>
+                <li class="content" data-bind="visible: edit()">
+                    <input type="text" id="editing" data-bind="value: content" />
+                    <i class="sub fa fa-share" data-bind="click: $root.saveItem"></i>
+                </li>
+            </ul>
+        </div>
+        <!-- End showAll DIV -->
+        
+        <!-- DIV for showActive -->
+        <div data-bind="foreach: list(), visible: showActive()">
+            <ul data-bind="visible: active()">
+                <li class="check">
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }"></i>
+                </li>
+                <li class="content" data-bind="visible: !edit()">
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
+                    <i class="del fa fa-times" data-bind="click: $root.delItem"></i>
+                </li>
+                <li class="content" data-bind="visible: edit()">
+                    <input type="text" data-bind="value: content" />
+                    <i class="sub fa fa-share" data-bind="click: $root.saveItem"></i>
+                </li>
+            </ul>
+        </div>
+        <!-- End showActive DIV -->
+        
+        <!-- DIV for showComplete -->
+        <div data-bind="foreach: list(), visible: showComplete()">
+            <ul data-bind="visible: complete()">
+                <li class="check">
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }"></i>
+                </li>
+                <li class="content" data-bind="visible: !edit()">
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
+                    <span class="archived" data-bind="visible: archive()">Archived</span>
+                    <i class="del fa fa-times" data-bind="click: $root.delItem"></i>
+                </li>
+                <li class="content" data-bind="visible: edit()">
+                    <input type="text" data-bind="value: content" />
+                    <i class="sub fa fa-share" data-bind="click: $root.saveItem"></i>
+                </li>
+            </ul>
+        </div>
+        <!-- End showComplete DIV -->
+        
+        <!-- DIV for showArchive -->
+        <div data-bind="foreach: list(), visible: showArchive()">
+            <ul data-bind="visible: archive()">
+                <li class="check">
+                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: archive()"></i>
+                </li>
+                <li class="content" data-bind="visible: !edit()">
+                    <span data-bind="text: content"></span>
+                    <span class="archived" data-bind="visible: archive()">Archived</span>
+                    <i class="sub fa fa-share" data-bind="click: $root.restoreItem"></i>
+                </li>
+                <li class="content" data-bind="visible: edit()">
+                    <input type="text" data-bind="value: content" />
+                    <i class="sub fa fa-share" data-bind="click: $root.saveItem"></i>
+                </li>
+            </ul>
+        </div>
+        <!-- End showArchive DIV -->
+    </section>
+    <!-- End of section for all items -->
+
+</div>
+<!-- End wrapper section -->
+
+<!-- DIV for footer section -->
+<div class="footer">
+    <span class="left" data-bind="visible: active()">
+        <span data-bind="text: active"></span> active tasks
+    </span>
+    <span class="left sort" data-bind="visible: list().length">
+        <span data-bind="click: showAlld, css: { active: showAll() }">All</span> |
+        <span data-bind="click: showActivated, css: { active: showActive() }">Active</span> |
+        <span data-bind="click: showCompleted, css: { active: showComplete() }">Completed</span> |
+        <span data-bind="click: showArchived, css: { active: showArchive() }">Archived</span>
+    </span>
+    <span data-bind="visible: completed()">
+        <button style="float: right;" data-bind="visible: showAll(), click: delComp">
+            Archive Completed Tasks
+        </button>
+        <button style="float: right;" data-bind="visible: showComplete(), click: delComp">
+            Archive Completed Tasks
+        </button>
+    </span>
+</div>
+<!-- End of footer DIV -->

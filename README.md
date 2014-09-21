@@ -2,11 +2,11 @@
 
 ###Introduction
 
-This simple todo list application is a remake using the Riggr application.
+This simple todo list application is a remake of the original TODO MVC using the Riggr application.
 
 ###Installation
 
-Literally download the app and place it into the desired destination and start the node process, and it will start functioning and listening on port 3003 ([http://localhost:3003](http://localhost:3003)):
+Literally download the app and place it into the desired destination, start the node process, and it will start functioning and listening on port 3003 ([http://localhost:3003](http://localhost:3003)):
 
 ```
 start index.js
@@ -28,3 +28,7 @@ The first step would be to create your list by adding items to be completed. Onc
 Archiving the item will not complete it out, but will save it until restored or deleted permanently.
 
 Completion and deletion options are pretty self explanatory; I suggest just playing around with it.
+
+###Demo
+
+Full demo available [here](http://todo.bekeris.info)

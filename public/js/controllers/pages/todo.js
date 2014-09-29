@@ -42,6 +42,16 @@ define([
         this.countActive();
         this.countComplete();
       }
+      todo.storeItem();
+    },
+    
+    storeItem: function () {
+      var active = todo.list()[0].active();
+      var complete = todo.list()[0].complete();
+      var content = todo.list()[0].content();
+      var archive = todo.list()[0].archive();
+      var localObj = {content: content, active: active, complete: complete, archive: archive};
+      localStorage.setItem('list', JSON.stringify(localObj));
     },
     
     // Archive item from list array & perform counts

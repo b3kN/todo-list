@@ -105,10 +105,10 @@
         <span data-bind="text: active"></span> active tasks
     </span>
     <span class="left sort" data-bind="visible: list().length">
-        <span data-bind="click: showAlld, css: { active: showAll() }">All</span> |
-        <span data-bind="click: showActivated, css: { active: showActive() }">Active</span> |
-        <span data-bind="click: showCompleted, css: { active: showComplete() }">Completed</span> |
-        <span data-bind="click: showArchived, css: { active: showArchive() }">Archived</span>
+        <span data-bind="click: show('all'), css: { active: showAll() }">All</span> |
+        <span data-bind="click: show('active'), css: { active: showActive() }">Active</span> |
+        <span data-bind="click: show('complete'), css: { active: showComplete() }">Completed</span> |
+        <span data-bind="click: show('archive'), css: { active: showArchive() }">Archived</span>
     </span>
     <span data-bind="visible: completed()">
         <button style="float: right;" data-bind="visible: showAll(), click: delComp">

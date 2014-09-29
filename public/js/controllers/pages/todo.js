@@ -43,6 +43,7 @@ define([
         this.countComplete();
       }
       todo.storeItem();
+      todo.show('all');
     },
     
     storeItem: function () {
@@ -120,44 +121,50 @@ define([
     // Archive all completed items
     delComp: function () {
       for(var i = 0; i < this.list().length; i++) {
-        if(this.list()[i].complete()){ // if item is completed
-          this.list()[i].archive(true); // set item to archived
-          this.list()[i].complete(false); // remove completed setting
+        if(this.list()[i].status() === 2){ // if item is completed
+          this.list()[i].status(3);
         }
       }
       this.completed(0); // Reset completed count to 0
     },
     
-    // Function to show all items
-    showAlld: function () {
-      this.showAll(true);
-      this.showActive(false);
-      this.showArchive(false);
-      this.showComplete(false);
-    },
-    
-    // Function to show only active items
-    showActivated: function () {
-      this.showAll(false);
-      this.showActive(true);
-      this.showArchive(false);
-      this.showComplete(false);
-    },
-    
-    // Function to show only archived items
-    showArchived: function () {
-      this.showAll(false);
-      this.showActive(false);
-      this.showArchive(true);
-      this.showComplete(false);
-    },
-    
-    // Function to show only completed items
-    showCompleted: function () {
-      this.showAll(false);
-      this.showActive(false);
-      this.showArchive(false);
-      this.showComplete(true);
+    show: function (type) {
+      switch (type) {
+        case 'all':
+          this.showAll(true);
+          this.showActive(false);
+          this.showArchive(false);
+          this.showComplete(false);
+        break;
+        
+        case 'active':
+          this.showAll(false);
+          this.showActive(true);
+          this.showArchive(false);
+          this.showComplete(false);
+        break;
+        
+        case 'archive':
+          this.showAll(false);
+          this.showActive(false);
+          this.showArchive(true);
+          this.showComplete(false);
+        break;
+        
+        case 'complete': 
+          this.showAll(false);
+          this.showActive(false);
+          this.showArchive(false);
+          this.showComplete(true);
+        break;
+        
+        default:
+          this.showAll(true);
+          this.showActive(false);
+          this.showArchive(false);
+          this.showComplete(false);
+        break;
+      }
     },
     
     // Remove item from array entirely

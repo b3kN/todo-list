@@ -7,8 +7,8 @@ define([
     pageTitle: 'To Do',
     
     // Observables
-    active: ko.observable(0), // Number of active items
-    completed: ko.observable(0), // Number of completed items
+    active: ko.observable(0),
+    completed: ko.observable(0),
     list: ko.observableArray([]), // Array containing items
     main: ko.observable(null), // Input field for new items
     showActive: ko.observable(false), // Action to show active items
@@ -37,7 +37,7 @@ define([
     // Add item to list array & perform count on array items
     addItem: function () {
       if(this.main()){
-        this.list.push({id: + new Date(), status: ko.observable(1), active: ko.observable(true), complete: ko.observable(false), edit: ko.observable(false), content: ko.observable(this.main()), archive: ko.observable(false)});
+        this.list.push({status: ko.observable(1), edit: ko.observable(false), content: ko.observable(this.main())});
         this.main(null); // Reset main input observable for new item
         this.countActive();
         this.countComplete();
@@ -47,14 +47,11 @@ define([
     },
     
     storeItem: function () {
-      console.log(todo.list()[0].status());
       var localArray = [];
       for(var x = 0; x < todo.list().length; x++){
-        var active = todo.list()[x].active();
-        var complete = todo.list()[x].complete();
         var content = todo.list()[x].content();
-        var archive = todo.list()[x].archive();
-        var localObj = {content: content, active: active, complete: complete, archive: archive};
+        var status = todo.list()[x].status();
+        var localObj = {content: content, status: status};
         localArray.push(localObj);
       }
       localStorage.setItem('list', JSON.stringify(localArray));
@@ -65,16 +62,15 @@ define([
       data.status(3);
       todo.countActive();
       todo.countComplete();
+      todo.storeItem();
     },
     
     // Edit content of item
     editItem: function (data) {
       if(!data.edit()){ // If not already set to edit
-        if(!data.archive()){ // && if not set to archive
-          if(!data.complete()){ // && finally not set to complete
-            data.edit(true); // Set item to edit
-            document.getElementById('editing').focus(); // focus on the input
-          }
+        if(data.status() === 1){ // && if not set to archive
+          data.edit(true); // Set item to edit
+          document.getElementById('editing').focus(); // focus on the input
         }
       }
     },
@@ -82,7 +78,7 @@ define([
     // Save out the new content of item
     saveItem: function (data) {
       data.edit(false); // Remove edit setting from item
-      console.log(data.status());
+      todo.storeItem();
     },
     
     // Set item to complete when finished & perform counts
@@ -94,6 +90,7 @@ define([
       }
       todo.countActive();
       todo.countComplete();
+      todo.storeItem();
     },
     
     // Count number of active items
@@ -177,6 +174,7 @@ define([
       data.status(1)
       todo.countActive();
       todo.countComplete();
+      todo.storeItem();
     }
     
   };

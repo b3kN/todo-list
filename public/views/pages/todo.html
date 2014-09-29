@@ -101,7 +101,7 @@
 
 <!-- DIV for footer section -->
 <div class="footer">
-    <span class="left" data-bind="visible: active()">
+    <span class="left" data-bind="visible: $root.countActive()">
         <span data-bind="text: active"></span> active tasks
     </span>
     <span class="left sort" data-bind="visible: list().length">

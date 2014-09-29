@@ -21,14 +21,14 @@
         <div data-bind="foreach: list(), visible: showAll()">
             <ul>
                 <li class="check">
-                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }, visible: !archive()"></i>
-                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: archive()"></i>
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: status() === 2 }, visible: status() !== 3"></i>
+                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: status() === 3"></i>
                 </li>
                 <li class="content" data-bind="visible: !edit()">
-                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
-                    <span class="archived" data-bind="visible: archive()">Archived</span>
-                    <i class="sub fa fa-share" data-bind="click: $root.restoreItem, visible: archive()"></i>
-                    <i class="del fa fa-times" data-bind="click: $root.delItem, visible: !archive()"></i>
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: status() === 2 }"></span>
+                    <span class="archived" data-bind="visible: status() === 3">Archived</span>
+                    <i class="sub fa fa-share" data-bind="click: $root.restoreItem, visible: status() === 3"></i>
+                    <i class="del fa fa-times" data-bind="click: $root.delItem, visible: status() !== 3"></i>
                 </li>
                 <li class="content" data-bind="visible: edit()">
                     <input type="text" id="editing" data-bind="value: content" />
@@ -40,12 +40,12 @@
         
         <!-- DIV for showActive -->
         <div data-bind="foreach: list(), visible: showActive()">
-            <ul data-bind="visible: active()">
+            <ul data-bind="visible: status() !== 3">
                 <li class="check">
-                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }"></i>
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: status() === 2 }"></i>
                 </li>
                 <li class="content" data-bind="visible: !edit()">
-                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: status() === 2 }"></span>
                     <i class="del fa fa-times" data-bind="click: $root.delItem"></i>
                 </li>
                 <li class="content" data-bind="visible: edit()">
@@ -58,13 +58,13 @@
         
         <!-- DIV for showComplete -->
         <div data-bind="foreach: list(), visible: showComplete()">
-            <ul data-bind="visible: complete()">
+            <ul data-bind="visible: status() === 2">
                 <li class="check">
-                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: complete }"></i>
+                    <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: status() === 2 }"></i>
                 </li>
                 <li class="content" data-bind="visible: !edit()">
-                    <span data-bind="text: content, click: $root.editItem, css: { finished: complete }"></span>
-                    <span class="archived" data-bind="visible: archive()">Archived</span>
+                    <span data-bind="text: content, click: $root.editItem, css: { finished: status() === 2 }"></span>
+                    <span class="archived" data-bind="visible: status() === 3">Archived</span>
                     <i class="del fa fa-times" data-bind="click: $root.delItem"></i>
                 </li>
                 <li class="content" data-bind="visible: edit()">
@@ -77,13 +77,13 @@
         
         <!-- DIV for showArchive -->
         <div data-bind="foreach: list(), visible: showArchive()">
-            <ul data-bind="visible: archive()">
+            <ul data-bind="visible: status() === 3">
                 <li class="check">
-                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: archive()"></i>
+                    <i class="rm fa fa-minus" data-bind="click: $root.rmItem, visible: status() === 3"></i>
                 </li>
                 <li class="content" data-bind="visible: !edit()">
                     <span data-bind="text: content"></span>
-                    <span class="archived" data-bind="visible: archive()">Archived</span>
+                    <span class="archived" data-bind="visible: status() === 3">Archived</span>
                     <i class="sub fa fa-share" data-bind="click: $root.restoreItem"></i>
                 </li>
                 <li class="content" data-bind="visible: edit()">

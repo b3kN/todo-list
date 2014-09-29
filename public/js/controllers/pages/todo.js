@@ -37,7 +37,7 @@ define([
     // Add item to list array & perform count on array items
     addItem: function () {
       if(this.main()){
-        this.list.push({id: + new Date(), active: ko.observable(true), complete: ko.observable(false), edit: ko.observable(false), content: ko.observable(this.main()), archive: ko.observable(false)});
+        this.list.push({id: + new Date(), status: ko.observable(1), active: ko.observable(true), complete: ko.observable(false), edit: ko.observable(false), content: ko.observable(this.main()), archive: ko.observable(false)});
         this.main(null); // Reset main input observable for new item
         this.countActive();
         this.countComplete();
@@ -46,19 +46,22 @@ define([
     },
     
     storeItem: function () {
-      var active = todo.list()[0].active();
-      var complete = todo.list()[0].complete();
-      var content = todo.list()[0].content();
-      var archive = todo.list()[0].archive();
-      var localObj = {content: content, active: active, complete: complete, archive: archive};
-      localStorage.setItem('list', JSON.stringify(localObj));
+      console.log(todo.list()[0].status());
+      var localArray = [];
+      for(var x = 0; x < todo.list().length; x++){
+        var active = todo.list()[x].active();
+        var complete = todo.list()[x].complete();
+        var content = todo.list()[x].content();
+        var archive = todo.list()[x].archive();
+        var localObj = {content: content, active: active, complete: complete, archive: archive};
+        localArray.push(localObj);
+      }
+      localStorage.setItem('list', JSON.stringify(localArray));
     },
     
     // Archive item from list array & perform counts
     delItem: function (data) {
-      data.archive(true); // Set item to archive
-      data.active(false); // Remove active from item
-      data.complete(false); // Remove complete from item
+      data.status(3);
       todo.countActive();
       todo.countComplete();
     },
@@ -78,16 +81,15 @@ define([
     // Save out the new content of item
     saveItem: function (data) {
       data.edit(false); // Remove edit setting from item
+      console.log(data.status());
     },
     
     // Set item to complete when finished & perform counts
     changeActive: function (data) {
-      if(data.complete()) { // If set to complete
-        data.complete(false); // Remove complete setting
-        data.active(true); // Set to active
-      }else{ // If not set to complete
-        data.complete(true); // Set item to complete
-        data.active(false); // Remove active setting
+      if(data.status() === 2) {
+        data.status(1);
+      } else {
+        data.status(2);
       }
       todo.countActive();
       todo.countComplete();
@@ -169,8 +171,7 @@ define([
     
     // Restore archived items
     restoreItem: function (data) {
-      data.active(true); // set item to active
-      data.archive(false); // remove archive setting
+      data.status(1)
       todo.countActive();
       todo.countComplete();
     }

@@ -40,7 +40,7 @@
         
         <!-- DIV for showActive -->
         <div data-bind="foreach: list(), visible: showActive()">
-            <ul data-bind="visible: status() !== 3">
+            <ul data-bind="visible: status() === 1">
                 <li class="check">
                     <i class="fa fa-check" data-bind="click: $root.changeActive, css: { completed: status() === 2 }"></i>
                 </li>

@@ -99,10 +99,8 @@ define([
     countActive: function () {
       var x = 0; // constant
       for(var i = 0; i < this.list().length; i++){
-        if(!this.list()[i].archive()){ // if item is not archived
-          if(!this.list()[i].complete()){ // && if item is not completed
-            x++; // Increment constant by 1
-          }
+        if(this.list()[i].status() === 1){ // if item is not archived
+          x++; // Increment constant by 1
         }
       }
       this.active(x); // Set number of active items to the new constant
@@ -112,10 +110,8 @@ define([
     countComplete: function () {
       var t = 0; // constant
       for(var i = 0; i < this.list().length; i++){
-        if(!this.list()[i].archive()){ // if item is not archived
-          if(this.list()[i].complete()){ // && if item IS completed
-            t++; // Increment constant by 1
-          }
+        if(this.list()[i].status() === 2){ // if item is not archived
+          t++; // Increment constant by 1
         }
       }
       this.completed(t); // Set number of active items to the new constant
